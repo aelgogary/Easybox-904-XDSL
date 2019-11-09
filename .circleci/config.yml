@@ -12,7 +12,7 @@ jobs:
         command: sudo apt-get update
     - run:
         name: (System) Install Linux Base Packages and Dependencies
-        command: sudo apt-get install -y sudo time git-core subversion build-essential gcc-multilib libncurses5-dev zlib1g-dev gawk flex gettext wget unzip python
+        command: sudo apt-get install -y sudo time git-core subversion build-essential gcc-multilib libncurses5-dev zlib1g-dev gawk flex gettext wget unzip python3 ccache python3-distutils && sudo pip3 install meson
     - run:
         name: (System) Create Non-Root User
         command: sudo useradd -m $DEFAULT_USER
@@ -32,7 +32,7 @@ jobs:
         command: $DEFAULT_SUDOSU $DEFAULT_USER -c "cd ~$CIRCLE_PROJECT_REPONAME && cp vr9_default.config .config"
     - run:
         name: (OpenWrt) Build Target
-        command: $DEFAULT_SUDOSU $DEFAULT_USER -c "cd ~$CIRCLE_PROJECT_REPONAME && make -j16"
+        command: $DEFAULT_SUDOSU $DEFAULT_USER -c "cd ~$CIRCLE_PROJECT_REPONAME && make V=s -j16"
         no_output_timeout: 30m         
     
     - store_artifacts:
