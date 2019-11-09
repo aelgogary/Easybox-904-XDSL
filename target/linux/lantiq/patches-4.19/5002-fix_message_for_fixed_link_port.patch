@@ -1,0 +1,20 @@
+Index: linux-4.19.67/drivers/net/ethernet/lantiq_xrx200.c
+===================================================================
+--- linux-4.19.67.orig/drivers/net/ethernet/lantiq_xrx200.c
++++ linux-4.19.67/drivers/net/ethernet/lantiq_xrx200.c
+@@ -2436,6 +2436,7 @@ static int xrx200_of_port(struct xrx200_
+ 		return -ENOMEM;
+ 	}
+ 
++	p->num = *id;
+ 	p->phy_node = of_parse_phandle(port, "phy-handle", 0);
+ 
+ 	if (!p->phy_node && of_phy_is_fixed_link(port)) {
+@@ -2456,7 +2457,6 @@ static int xrx200_of_port(struct xrx200_
+ 		return -EINVAL;
+ 	}
+ 
+-	p->num = *id;
+ 	p->phy_addr = *addr;
+ 	p->phy_if = of_get_phy_mode(port);
+ 	if(p->phy_if == PHY_INTERFACE_MODE_RGMII) {
