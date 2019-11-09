@@ -14,6 +14,9 @@ jobs:
         name: (System) Install Linux Base Packages and Dependencies
         command: sudo apt-get install -y sudo time git-core subversion build-essential gcc-multilib libncurses5-dev zlib1g-dev gawk flex gettext wget unzip python3 ccache 
     - run:
+        name: set python3
+        command: $DEFAULT_SUDOSU $DEFAULT_USER -c 'echo "alias python=python3" >> ~/.bashrc && source ~/.bashrc'
+    - run:
         name: (System) Create Non-Root User
         command: sudo useradd -m $DEFAULT_USER
     - checkout:
