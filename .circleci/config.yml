@@ -15,7 +15,7 @@ jobs:
         command: sudo apt-get install -y sudo time git-core subversion build-essential gcc-multilib libncurses5-dev zlib1g-dev gawk flex gettext wget unzip python3 ccache 
     - run:
         name: set python3
-        command: rm /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
+        command:  update-alternatives --install /usr/bin/python python /usr/bin/python3 1
     - run:
         name: (System) Create Non-Root User
         command: sudo useradd -m $DEFAULT_USER
