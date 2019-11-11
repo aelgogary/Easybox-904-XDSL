@@ -15,7 +15,7 @@ jobs:
         command: sudo apt-get install -y sudo time git-core subversion build-essential gcc-multilib libncurses5-dev zlib1g-dev gawk flex gettext wget unzip python3 ccache 
     - run:
         name: set python3
-        command:  update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+        command:  $DEFAULT_SUDOSU $DEFAULT_USER -c "alias python=python3"
     - run:
         name: (System) Create Non-Root User
         command: sudo useradd -m $DEFAULT_USER
@@ -32,7 +32,7 @@ jobs:
         command: $DEFAULT_SUDOSU $DEFAULT_USER -c "cd ~$CIRCLE_PROJECT_REPONAME && ./scripts/feeds install -a"
     - run:
         name: (OpenWrt) Setup Target Configuration
-        command: $DEFAULT_SUDOSU $DEFAULT_USER -c "cd ~$CIRCLE_PROJECT_REPONAME && cp vr9_default.config .config"
+        command: $DEFAULT_SUDOSU $DEFAULT_USER -c "cd ~$CIRCLE_PROJECT_REPONAME && cp vr9_default.config .config && make oldconfig"
     - run:
         name: (OpenWrt) Build Target
         command: $DEFAULT_SUDOSU $DEFAULT_USER -c "cd ~$CIRCLE_PROJECT_REPONAME && make V=s -j16"
